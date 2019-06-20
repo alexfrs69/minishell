@@ -6,17 +6,30 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/17 04:33:01 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:48:30 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minishell.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-int		main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char **envp)
 {
-	if(argc != 2)
-		return (0);
-	ft_putendl(argv[1]);
-	ft_putendl(env[0]);
+	char	*input;
+	char	**cmds;
+
+	cmds = NULL;
+	input = NULL;
+	if(!(g_env = ft_copy_env(envp)))
+		exit(0);
+	while (1)
+	{
+		ft_putstr("$>");
+		input = read_input();
+		cmds = ft_strsplit(input, ' ');
+
+	}
 	return (0);
 }

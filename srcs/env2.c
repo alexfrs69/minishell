@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 04:28:01 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 04:52:41 by afrancoi         ###   ########.fr       */
+/*   Created: 2019/06/20 15:34:09 by afrancoi          #+#    #+#             */
+/*   Updated: 2019/06/20 15:47:30 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
+#include "libft.h"
 
+void	ft_display_env(void)
+{
+	int i;
 
-/*typedef struct	s_shell {
-	char		**env;
+	i = -1;
+	while (g_env[++i])
+		ft_putendl(g_env[i]);
+	printf("total %d\n", i);
+}
 
-}				t_shell;*/
+char	*ft_get_env(char *name)
+{
+	int		i;
+	char	*tmp;
 
-char	**g_env;
-
-/*
-** Env
-*/
-char	**ft_copy_env(char **env);
-char	*ft_get_env(char *name);
-int		ft_setenv(char *name, char *value);
-void	ft_display_env(void);
-int		ft_unsetenv(char *name);
-
-/*
-** Input
-*/
-char	*read_input(void);
-
-#endif
+	tmp = NULL;
+	i = -1;
+	while (g_env[++i])
+	{
+			if (ft_strnequ(g_env[i], name, ft_strlen(name))
+				&& g_env[i][ft_strlen(name)] == '=')
+				return (g_env[i]);
+	}
+	return (NULL);
+}

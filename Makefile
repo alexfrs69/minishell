@@ -3,10 +3,13 @@ NAME = minishell
 
 # GCC
 CC = gcc
-CFLAGS = -Wall -Wextra -I includes/ -I libft/includes
+CFLAGS = -g3 -fsanitize=address -Wall -Wextra -I includes/ -I libft/includes
 
 # Sources & Objects
-SRCS = srcs/main.c
+SRCS =	srcs/main.c		\
+		srcs/input.c	\
+		srcs/env1.c		\
+		srcs/env2.c		\
 
 OBJS_PATH = objs/
 OBJS = $(patsubst srcs/%.c,$(OBJS_PATH)%.o, $(SRCS))

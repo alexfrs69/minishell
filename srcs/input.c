@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 04:28:01 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 04:52:41 by afrancoi         ###   ########.fr       */
+/*   Created: 2019/06/18 10:44:48 by afrancoi          #+#    #+#             */
+/*   Updated: 2019/06/18 11:11:22 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
+#include <unistd.h>
 
+char *read_input(void)
+{
+	char	buf;
+	char	*input;
+	int		n;
+	char	*tmp;
 
-/*typedef struct	s_shell {
-	char		**env;
-
-}				t_shell;*/
-
-char	**g_env;
-
-/*
-** Env
-*/
-char	**ft_copy_env(char **env);
-char	*ft_get_env(char *name);
-int		ft_setenv(char *name, char *value);
-void	ft_display_env(void);
-int		ft_unsetenv(char *name);
-
-/*
-** Input
-*/
-char	*read_input(void);
-
-#endif
+	tmp = NULL;
+	input = ft_strnew(1);
+	while((n = read(0, &buf, 1)) && buf != '\n')
+	{
+		tmp = input;
+		input = ft_strnew(ft_strlen(input) + 1);
+		ft_strcpy(input, tmp);
+		input[ft_strlen(input)] = buf;
+	}
+	return (input);
+}
