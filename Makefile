@@ -10,6 +10,7 @@ SRCS =	srcs/main.c		\
 		srcs/input.c	\
 		srcs/env1.c		\
 		srcs/env2.c		\
+		srcs/builtins.c		\
 
 OBJS_PATH = objs/
 OBJS = $(patsubst srcs/%.c,$(OBJS_PATH)%.o, $(SRCS))

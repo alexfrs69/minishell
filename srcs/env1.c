@@ -6,14 +6,13 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:40:56 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 15:47:18 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:18:31 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 char **ft_realloc_env(size_t size)
 {

@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 15:48:30 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:01:03 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int argc, char **argv, char **envp)
 		ft_putstr("$>");
 		input = read_input();
 		cmds = ft_strsplit(input, ' ');
-
+		ft_check_builtins(cmds);
 	}
 	return (0);
 }
