@@ -6,14 +6,14 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:44:48 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/18 11:11:22 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:46:47 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
 
-char *read_input(void)
+char	*read_input(void)
 {
 	char	buf;
 	char	*input;
@@ -22,7 +22,7 @@ char *read_input(void)
 
 	tmp = NULL;
 	input = ft_strnew(1);
-	while((n = read(0, &buf, 1)) && buf != '\n')
+	while ((n = read(0, &buf, 1)) && buf != '\n')
 	{
 		tmp = input;
 		input = ft_strnew(ft_strlen(input) + 1);

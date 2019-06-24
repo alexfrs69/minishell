@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:47:31 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 17:15:44 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:44:46 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_cd_err(char *msg, char *path)
 {
 	ft_putstr("cd: ");
 	ft_putstr(msg);
-	if(path)
+	if (path)
 		ft_putendl(path);
 	else
 		ft_putchar('\n');
@@ -49,12 +49,13 @@ static int	ft_change_dir(char *path)
 {
 	char	cwd[PATH_MAX + 1];
 	char	*tmp;
+
 	getcwd(cwd, PATH_MAX);
-	if(!cwd[0])
+	if (!cwd[0])
 		return (0);
-	if(!ft_check_dir(path))
+	if (!ft_check_dir(path))
 		return (0);
-	if(chdir(path) == -1)
+	if (chdir(path) == -1)
 	{
 		ft_putendl("chdir failed\n");
 		return (0);
@@ -83,6 +84,6 @@ void		ft_builtin_cd(char **args)
 		path = ft_get_env("OLDPWD");
 	else
 		path = args[0];
-	if(!(ft_change_dir(path)))
+	if (!(ft_change_dir(path)))
 		return ;
 }

@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:40:56 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 17:09:37 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:48:04 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "minishell.h"
 #include <stdlib.h>
 
-char **ft_realloc_env(size_t size)
+char	**ft_realloc_env(size_t size)
 {
 	char	**new;
-	int	i;
+	int		i;
 
-	if(!(new = ft_memalloc(sizeof(char*) * (size + 1))))
+	if (!(new = ft_memalloc(sizeof(char*) * (size + 1))))
 		return (NULL);
 	i = -1;
-	while(g_env[++i])
+	while (g_env[++i])
 	{
 		new[i] = ft_strdup(g_env[i]);
 		ft_strdel(&g_env[i]);
@@ -31,7 +31,7 @@ char **ft_realloc_env(size_t size)
 	return (new);
 }
 
-char **ft_copy_env(char **env)
+char	**ft_copy_env(char **env)
 {
 	char	**ret;
 	int		i;
@@ -58,17 +58,17 @@ int		ft_setenv(char *name, char *value)
 
 	tmp = NULL;
 	i = ft_get_i_env(name);
-	if(i >= 0 && g_env[i])
+	if (i >= 0 && g_env[i])
 		ft_strdel(&g_env[i]);
 	else
 	{
 		i = ft_get_size_env();
-		if(!(g_env = ft_realloc_env(i + 1)))
+		if (!(g_env = ft_realloc_env(i + 1)))
 			return (0);
 	}
 	if (value)
 	{
-		if(!(tmp = ft_strjoin("=", value)))
+		if (!(tmp = ft_strjoin("=", value)))
 			return (0);
 		g_env[i] = ft_strjoin(name, tmp);
 	}
@@ -82,10 +82,10 @@ int		ft_unsetenv(char *name)
 {
 	int i;
 
-	if(!(i = ft_get_i_env(name)))
+	if (!(i = ft_get_i_env(name)))
 		return (0);
 	ft_strdel(&g_env[i]);
-	while(g_env[i + 1])
+	while (g_env[i + 1])
 	{
 		g_env[i] = ft_strdup(g_env[i + 1]);
 		ft_strdel(&g_env[i + 1]);
@@ -94,4 +94,3 @@ int		ft_unsetenv(char *name)
 	g_env = ft_realloc_env(i);
 	return (1);
 }
-

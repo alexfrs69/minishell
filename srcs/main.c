@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 17:02:36 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:46:59 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		main(int argc, char **argv, char **envp)
 
 	cmds = NULL;
 	input = NULL;
-	if(!(g_env = ft_copy_env(envp)))
+	if (!(g_env = ft_copy_env(envp)))
 		exit(0);
 	while (1)
 	{
