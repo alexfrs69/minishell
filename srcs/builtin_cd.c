@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:47:31 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:44:46 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:50:46 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int	ft_check_dir(char *path)
 {
 	struct stat buf;
 
-	ft_putstr("CD PATH = ");
-	ft_putendl(path);
 	if (lstat(path, &buf) == -1)
 	{
 		ft_cd_err("no such file or directory: ", path);

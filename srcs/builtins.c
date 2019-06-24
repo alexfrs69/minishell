@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:49:23 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/23 20:07:03 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:00:11 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		ft_check_builtins(char **cmds)
 		else if (ft_strequ(cmds[0], "cd"))
 			ft_builtin_cd(cmds + 1);
 		else if (ft_strequ(cmds[0], "exit"))
-			exit(0);
+			return (-1);
 		else
 			return (0);
 		return (1);

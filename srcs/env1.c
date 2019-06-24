@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:40:56 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:48:04 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:38:59 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ int		ft_unsetenv(char *name)
 
 	if (!(i = ft_get_i_env(name)))
 		return (0);
-	ft_strdel(&g_env[i]);
 	while (g_env[i + 1])
 	{
+		ft_strdel(&g_env[i]);
 		g_env[i] = ft_strdup(g_env[i + 1]);
 		ft_strdel(&g_env[i + 1]);
 		i++;

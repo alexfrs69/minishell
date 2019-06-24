@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:46:59 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:41:28 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	char	**cmds;
+	int		ret;
 
 	cmds = NULL;
 	input = NULL;
@@ -32,7 +33,16 @@ int		main(int argc, char **argv, char **envp)
 		ft_putstr("$>");
 		input = read_input();
 		cmds = ft_strsplit(input, ' ');
-		ft_check_builtins(cmds);
+		ft_strdel(&input);
+		if ((ret = ft_check_builtins(cmds)) == -1)
+			break ;
+		/*else if (ret == 0)
+			ft_searchpath();
+		*/
+		ft_del_arrays(cmds);
 	}
+	if (cmds)
+		ft_del_arrays(cmds);
+	ft_del_arrays(g_env);
 	return (0);
 }

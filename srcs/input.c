@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:44:48 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:46:47 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:12:22 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*read_input(void)
 		tmp = input;
 		input = ft_strnew(ft_strlen(input) + 1);
 		ft_strcpy(input, tmp);
+		ft_strdel(&tmp);
 		input[ft_strlen(input)] = buf;
 	}
 	return (input);
