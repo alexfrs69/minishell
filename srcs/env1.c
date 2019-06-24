@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:40:56 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 16:18:31 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:09:37 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,30 @@ char **ft_copy_env(char **env)
 	return (ret);
 }
 
-int		ft_get_i_env(char *name)
-{
-	int		i;
-
-	i = -1;
-	while (g_env[++i])
-	{
-		if (ft_strnequ(g_env[i], name, ft_strlen(name))
-			&& g_env[i][ft_strlen(name)] == '=')
-			return (i);
-	}
-	return (0);
-}
-
 int		ft_setenv(char *name, char *value)
 {
 	int		i;
+	char	*tmp;
 
-	i = 0;
-	if (!(i = ft_get_i_env(name)))
+	tmp = NULL;
+	i = ft_get_i_env(name);
+	if(i >= 0 && g_env[i])
+		ft_strdel(&g_env[i]);
+	else
 	{
-		while(g_env[i])
-			i++;
+		i = ft_get_size_env();
+		if(!(g_env = ft_realloc_env(i + 1)))
+			return (0);
 	}
-	if(!(g_env = ft_realloc_env(i + 1)))
-		return (0);
-	g_env[i] = ft_strnew(ft_strlen(name) + ft_strlen(value) + 1);
-	ft_strcpy(g_env[i], name);
-	ft_strcat(g_env[i], "=");
-	ft_strcat(g_env[i], value);
+	if (value)
+	{
+		if(!(tmp = ft_strjoin("=", value)))
+			return (0);
+		g_env[i] = ft_strjoin(name, tmp);
+	}
+	else
+		g_env[i] = ft_strjoin(name, "=");
+	ft_strdel(&tmp);
 	return (1);
 }
 

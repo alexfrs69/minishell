@@ -6,11 +6,12 @@ CC = gcc
 CFLAGS = -g3 -fsanitize=address -Wall -Wextra -I includes/ -I libft/includes
 
 # Sources & Objects
-SRCS =	srcs/main.c		\
-		srcs/input.c	\
-		srcs/env1.c		\
-		srcs/env2.c		\
-		srcs/builtins.c		\
+SRCS =	srcs/main.c				\
+		srcs/input.c			\
+		srcs/env1.c				\
+		srcs/env2.c				\
+		srcs/builtins.c			\
+		srcs/builtin_cd.c		\
 
 OBJS_PATH = objs/
 OBJS = $(patsubst srcs/%.c,$(OBJS_PATH)%.o, $(SRCS))

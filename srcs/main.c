@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/20 16:01:03 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:02:36 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int		main(int argc, char **argv, char **envp)
 		exit(0);
 	while (1)
 	{
+		ft_putstr("[ ");
+		ft_putstr(ft_get_env("PWD"));
+		ft_putstr(" ] ");
 		ft_putstr("$>");
 		input = read_input();
 		cmds = ft_strsplit(input, ' ');
