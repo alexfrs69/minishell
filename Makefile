@@ -3,7 +3,7 @@ NAME = minishell
 
 # GCC
 CC = gcc
-CFLAGS = -g3 -fsanitize=address -Wall -Wextra -I includes/ -I libft/includes
+CFLAGS = -g3 -Wall -Wextra -I includes/ -I libft/includes
 
 # Sources & Objects
 SRCS =	srcs/main.c				\
@@ -31,13 +31,13 @@ $(NAME) : $(LIBFT) $(OBJS)
 	@make -C $(LIBFT)
 	@printf "\e[1;32m%-30s\e[0m" "Creating $@"
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES)
-	@printf "\e[1;32m%08s\e[0m\n" "[ OK ]"
+	@printf "\e[1;32m%08s\e[0m\n" "[ √ ]"
 
 $(OBJS_PATH)%.o : srcs/%.c
 	@mkdir -p $(OBJS_PATH)
 	@printf "\e[1;36m%-30s\e[0m" "$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\e[1;32m%08s\e[0m\n" "[ OK ]"
+	@printf "\e[1;32m%08s\e[0m\n" "[ √ ]"
 clean :
 	@make clean -C $(LIBFT)
 	@$(RM) $(OBJS_PATH)

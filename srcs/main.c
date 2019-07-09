@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:41:28 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/07/09 05:32:19 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_putstr("[ ");
-		ft_putstr(ft_get_env("PWD"));
+		if (ft_strequ(ft_get_env("HOME"), ft_get_env("PWD")))
+			ft_putchar('~');
+		else
+			ft_putstr(ft_get_env("PWD"));
 		ft_putstr(" ] ");
 		ft_putstr("$>");
-		input = read_input();
+		if(!(input = read_input()))
+		{
+			ft_putstr("PARSING FAILED\n");
+			break ;
+		}
 		cmds = ft_strsplit(input, ' ');
 		ft_strdel(&input);
 		if ((ret = ft_check_builtins(cmds)) == -1)
@@ -41,8 +48,7 @@ int		main(int argc, char **argv, char **envp)
 		*/
 		ft_del_arrays(cmds);
 	}
-	if (cmds)
-		ft_del_arrays(cmds);
+	ft_del_arrays(cmds);
 	ft_del_arrays(g_env);
 	return (0);
 }
