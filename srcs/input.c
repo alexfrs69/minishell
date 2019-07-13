@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:44:48 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/07/09 05:26:43 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/07/10 09:22:59 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*parse_tilt(char *input, int i)
 	int		sizeinput;
 
 	if (!(home = ft_get_env("HOME")))
-		return (NULL);
+		return (input);
 	sizeinput = ft_strlen(input);
 	if (sizeinput == 1)
 		return (ft_strdup(home));
 	if (!(ret = ft_strnew(sizeinput + ft_strlen(home))))
-		return (NULL);
+		return (input);
 	if (input[i + 1] && input[i + 1] != '/'
 		&& (i != 0 && input[i - 1] == ' ')
 		&& ft_isalnum(input[i + 1]))
@@ -44,7 +44,8 @@ char	*parse_tilt(char *input, int i)
 		ft_strcpy(ret + i + ft_strlen(home), input + i + 1);
 	}
 	else
-		return (ft_strdup(input));
+		return (input);
+	ft_strdel(&input);
 	printf("ret = %s\n", ret);
 	return (ret);
 }
@@ -63,19 +64,20 @@ char	*parse_env(char *input, int i)
 			if ((sp = ft_strichr(input + i + 1, '$')) == -1)
 				sp = ft_strlen(input + i + 1);
 		if (!(name = ft_strndup(input + i + 1, sp)))
-			return (NULL);
+			return (input);
 		if (!(env = ft_get_env(name)))
-			return (ft_strdup(input));
+			return (input);
 		ft_strdel(&name);
 		if (!(ret = ft_strnew(ft_strlen(input) + ft_strlen(env))))
-			return (NULL);
+			return (input);
 		ft_strncpy(ret, input, i);
 		ft_strcpy(ret + i, env);
 		ft_strcpy(ret + i + ft_strlen(env), input + i + 1 + sp);
 	}
 	else
-		return (ft_strdup(input));
+		return (input);
 	printf("ret = %s\n", ret);
+	ft_strdel(&input);
 	return (ret);
 }
 
@@ -87,18 +89,15 @@ char	*parse_input(char *input)
 	i = -1;
 	while (input[++i])
 	{
-		tmp = input;
 		if (input[i] == '~')
 		{
 			if (!(input = parse_tilt(input, i)))
 				break ;
-			ft_strdel(&tmp);
 		}
 		else if (input[i] == '$')
 		{
 			if (!(input = parse_env(input, i)))
 				break ;
-			ft_strdel(&tmp);
 		}
 	}
 	return (input);

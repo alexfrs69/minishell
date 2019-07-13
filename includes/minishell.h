@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:01 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 16:07:14 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/07/10 04:37:41 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,10 @@ void	ft_builtin_cd(char **args);
 ** Input
 */
 char	*read_input(void);
+
+/*
+** Exec
+*/
+int		ft_searchbin(char **cmds);
 
 #endif

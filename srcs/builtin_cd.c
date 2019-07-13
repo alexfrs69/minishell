@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:47:31 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:50:46 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/07/10 09:32:11 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static int	ft_check_dir(char *path)
 		ft_cd_err("no such file or directory: ", path);
 		return (0);
 	}
+	if(!(S_ISDIR(buf.st_mode)))
+	{
+		ft_cd_err("not a directory: ", path);
+		return (0);
+	}
 	if (!(buf.st_mode & S_IXUSR))
 	{
 		ft_cd_err("permission denied: ", path);
@@ -58,10 +63,14 @@ static int	ft_change_dir(char *path)
 		ft_putendl("chdir failed\n");
 		return (0);
 	}
-	tmp = ft_strdup(path);
+	if(*path == '/' || *path == '.')
+		tmp = path;
+	else
+		tmp = ft_pathjoin(cwd, path);
 	ft_setenv("OLDPWD", cwd);
 	ft_setenv("PWD", tmp);
-	ft_strdel(&tmp);
+	if(*path != '/' && *path != '.')
+		ft_strdel(&tmp);
 	return (1);
 }
 
@@ -74,12 +83,18 @@ void		ft_builtin_cd(char **args)
 	{
 		if (!(path = ft_get_env("HOME")))
 		{
-			ft_putendl("Env \"HOME\" is not defined, no enough arguments.");
+			ft_cd_err("Env \"HOME\" is not defined, no enough arguments.", NULL);
 			return ;
 		}
 	}
 	else if (*args[0] == '-')
-		path = ft_get_env("OLDPWD");
+	{
+		if(!(path = ft_get_env("OLDPWD")))
+		{
+			ft_cd_err("Env \"OLDPWD\" is not defined, cannot use \'-\'.", NULL);
+			return ;
+		}
+	}
 	else
 		path = args[0];
 	if (!(ft_change_dir(path)))

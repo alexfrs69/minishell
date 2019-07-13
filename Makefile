@@ -12,6 +12,7 @@ SRCS =	srcs/main.c				\
 		srcs/env2.c				\
 		srcs/builtins.c			\
 		srcs/builtin_cd.c		\
+		srcs/exec.c				\
 
 OBJS_PATH = objs/
 OBJS = $(patsubst srcs/%.c,$(OBJS_PATH)%.o, $(SRCS))
