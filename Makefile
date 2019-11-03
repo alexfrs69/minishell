@@ -3,7 +3,7 @@ NAME = minishell
 
 # GCC
 CC = gcc
-CFLAGS = -Wall -Wextra -I includes/ -I libft/includes
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes
 
 # Sources & Objects
 SRCS =	srcs/main.c				\
