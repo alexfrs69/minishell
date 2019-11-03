@@ -6,18 +6,18 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:01 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/07/10 04:37:41 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/11/03 03:01:43 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-/*typedef struct	s_shell {
-	char		**env;
-
-}				t_shell;*/
+# define ERR_HOME_MISSING "Env \"HOME\" is not defined, no enough arguments."
+# define ERR_OLDPWD_MISSING "Env \"OLDPWD\" is not defined, cannot use \'-\'."
+# define ERR_EACCES "permission denied: "
+# define ERR_ENOTDIR "not a directory: "
+# define ERR_ENOENT "no such file or directory: "
 
 char	**g_env;
 
@@ -42,6 +42,8 @@ void	ft_builtin_cd(char **args);
 ** Input
 */
 char	*read_input(void);
+char	*parse_tilt(char *input, int i);
+char	*parse_env(char *input, int i);
 
 /*
 ** Exec

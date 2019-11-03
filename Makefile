@@ -3,11 +3,12 @@ NAME = minishell
 
 # GCC
 CC = gcc
-CFLAGS = -g3 -Wall -Wextra -I includes/ -I libft/includes
+CFLAGS = -Wall -Wextra -I includes/ -I libft/includes
 
 # Sources & Objects
 SRCS =	srcs/main.c				\
 		srcs/input.c			\
+		srcs/input2.c			\
 		srcs/env1.c				\
 		srcs/env2.c				\
 		srcs/builtins.c			\

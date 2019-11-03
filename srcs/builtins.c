@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:49:23 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/07/10 08:51:22 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/11/03 00:39:09 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_builtin_env(char **args, int setenv)
 		{
 			if (!(ft_strchr(args[i], '=')))
 				return ;
-			if (!(kv = ft_strsplit(args[i], '=')))
+			if (!(kv = ft_strsplit(args[i], "=")))
 				return ;
 			ft_setenv(kv[0], kv[1]);
 			ft_strdel(&kv[0]);

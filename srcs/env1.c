@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:40:56 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:38:59 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/11/03 02:29:45 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_realloc_env(size_t size)
 	if (!(new = ft_memalloc(sizeof(char*) * (size + 1))))
 		return (NULL);
 	i = -1;
-	while (g_env[++i])
+	while (g_env[++i] && i < size)
 	{
 		new[i] = ft_strdup(g_env[i]);
 		ft_strdel(&g_env[i]);
@@ -82,7 +82,7 @@ int		ft_unsetenv(char *name)
 {
 	int i;
 
-	if (!(i = ft_get_i_env(name)))
+	if ((i = ft_get_i_env(name)) == -1)
 		return (0);
 	while (g_env[i + 1])
 	{

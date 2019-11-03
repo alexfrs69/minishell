@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:47:31 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/07/10 09:32:11 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/11/03 02:42:39 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <unistd.h>
 #include <limits.h>
-#include <sys/stat.h>
 
 static void	ft_cd_err(char *msg, char *path)
 {
@@ -26,52 +25,33 @@ static void	ft_cd_err(char *msg, char *path)
 		ft_putchar('\n');
 }
 
-static int	ft_check_dir(char *path)
+static void	ft_err_dir(char *path)
 {
-	struct stat buf;
-
-	if (lstat(path, &buf) == -1)
-	{
-		ft_cd_err("no such file or directory: ", path);
-		return (0);
-	}
-	if(!(S_ISDIR(buf.st_mode)))
-	{
-		ft_cd_err("not a directory: ", path);
-		return (0);
-	}
-	if (!(buf.st_mode & S_IXUSR))
-	{
-		ft_cd_err("permission denied: ", path);
-		return (0);
-	}
-	return (1);
+	if (access(path, F_OK))
+		ft_cd_err(ERR_ENOENT, path);
+	else if (access(path, R_OK))
+		ft_cd_err(ERR_EACCES, path);
+	else
+		ft_cd_err(ERR_ENOTDIR, path);
 }
 
 static int	ft_change_dir(char *path)
 {
-	char	cwd[PATH_MAX + 1];
-	char	*tmp;
+	char pwd[PATH_MAX];
 
-	getcwd(cwd, PATH_MAX);
-	if (!cwd[0])
-		return (0);
-	if (!ft_check_dir(path))
-		return (0);
-	if (chdir(path) == -1)
+	getcwd(pwd, PATH_MAX);
+	if (!chdir(path))
 	{
-		ft_putendl("chdir failed\n");
+		ft_setenv("OLDPWD", pwd);
+		getcwd(pwd, PATH_MAX);
+		ft_setenv("PWD", pwd);
+		return (1);
+	}
+	else
+	{
+		ft_err_dir(path);
 		return (0);
 	}
-	if(*path == '/' || *path == '.')
-		tmp = path;
-	else
-		tmp = ft_pathjoin(cwd, path);
-	ft_setenv("OLDPWD", cwd);
-	ft_setenv("PWD", tmp);
-	if(*path != '/' && *path != '.')
-		ft_strdel(&tmp);
-	return (1);
 }
 
 void		ft_builtin_cd(char **args)
@@ -83,15 +63,15 @@ void		ft_builtin_cd(char **args)
 	{
 		if (!(path = ft_get_env("HOME")))
 		{
-			ft_cd_err("Env \"HOME\" is not defined, no enough arguments.", NULL);
+			ft_cd_err(ERR_HOME_MISSING, NULL);
 			return ;
 		}
 	}
 	else if (*args[0] == '-')
 	{
-		if(!(path = ft_get_env("OLDPWD")))
+		if (!(path = ft_get_env("OLDPWD")))
 		{
-			ft_cd_err("Env \"OLDPWD\" is not defined, cannot use \'-\'.", NULL);
+			ft_cd_err(ERR_OLDPWD_MISSING, NULL);
 			return ;
 		}
 	}

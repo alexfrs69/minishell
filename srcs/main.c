@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 04:28:19 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/07/10 09:34:15 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/11/03 02:58:11 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,23 @@
 #include <stdlib.h>
 #include <limits.h>
 
-static void ft_init(void)
+static void		ft_kickstart(char **env)
 {
-	char buf[PATH_MAX + 1];
+	char *tmp;
 
-	if(!(ft_get_env("PWD")))
+	if (!(g_env = ft_copy_env(env)))
+		exit(0);
+	if (!(ft_get_env("SHLVL")))
+		ft_setenv("SHLVL", "1");
+	else
 	{
-		getcwd(buf, PATH_MAX);
-		ft_setenv("PWD", buf);
+		tmp = ft_itoa(ft_atoi(ft_get_env("SHLVL")) + 1);
+		ft_setenv("SHLVL", tmp);
+		ft_strdel(&tmp);
 	}
 }
 
-static	void ft_display_prompt(void)
+static void		ft_display_prompt(void)
 {
 	char *home;
 	char *pwd;
@@ -43,23 +48,36 @@ static	void ft_display_prompt(void)
 	ft_putstr("$>");
 }
 
-int		main(int argc, char **argv, char **envp)
+static void		ft_init(void)
+{
+	char buf[PATH_MAX + 1];
+
+	if (!(ft_get_env("PWD")))
+	{
+		getcwd(buf, PATH_MAX);
+		ft_setenv("PWD", buf);
+	}
+	ft_display_prompt();
+}
+
+static void		ft_run(void)
 {
 	char	*input;
 	char	**cmds;
 	int		ret;
 
-	input = NULL;
-	if (!(g_env = ft_copy_env(envp)))
-		exit(0);
 	while (1)
 	{
 		ft_init();
 		cmds = NULL;
-		ft_display_prompt();
-		if(!(input = read_input()))
+		if (!(input = read_input()))
 			break ;
-		cmds = ft_strsplit(input, ' ');
+		if (!ft_strlen(input))
+		{
+			ft_strdel(&input);
+			continue ;
+		}
+		cmds = ft_strsplit(input, "	 ");
 		ft_strdel(&input);
 		if ((ret = ft_check_builtins(cmds)) == -1)
 			break ;
@@ -69,5 +87,13 @@ int		main(int argc, char **argv, char **envp)
 	}
 	ft_del_arrays(cmds);
 	ft_del_arrays(g_env);
+}
+
+int				main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	ft_kickstart(envp);
+	ft_run();
 	return (0);
 }
